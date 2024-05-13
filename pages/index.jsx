@@ -7,6 +7,8 @@ import CardRow from "./components/home/CardRow";
 import ChildCare from "./components/_atom/ChildCare";
 import Footer from "./components/_molecule/Footer";
 import Hero from "./components/home/Hero";
+import HomeCardRow from "./components/home/HomeCardRow";
+import Head from "next/head";
 
 export default function Home() {
   useEffect(() => {
@@ -17,8 +19,11 @@ export default function Home() {
   });
   return (
     <main className="max-w-[2160px] px-8 mx-auto">
+      <Head>
+        <title>Soleil</title>
+      </Head>
       <Navbar />
-      <Hero/>
+      <Hero />
       <div className="h-screen w-full"></div>
       <Features />
       <About
@@ -28,10 +33,7 @@ export default function Home() {
         letters, as opposed to using 'Content here, content here', making it
         look like readable English."
       />
-      <CardRow
-        title="Explore Our Handpicked Selections & Find Your Perfect Fit"
-        buttonText="Shop Products"
-      />
+      <HomeCardRow />
       <ChildCare />
       <Footer />
     </main>

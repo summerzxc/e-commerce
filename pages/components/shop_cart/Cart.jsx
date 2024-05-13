@@ -7,6 +7,7 @@ import { RiShoppingBagFill } from "react-icons/ri";
 
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
+import CartProduct from "./CartProduct";
 
 export default function Cart() {
   const container = useRef();
@@ -51,14 +52,17 @@ export default function Cart() {
           <RiShoppingBagFill size={28} />
         </div>
       </div>
-      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] text-white z-[2] flex flex-col p-[64px] justify-between">
-        <div className="w-full flex justify-between">
-          <div></div>
+      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] text-white z-[2] flex flex-col p-8 md:p-[64px] overflow-hidden">
+        <div className="w-full flex items-center justify-between">
+          <div className="text-[40px] md:text-[100px] bebas leading-[100%]">Your Cart</div>
           <div className="menu-close" onClick={toggleCart}>
-            <p className="leading-[100%] cursor-pointer text-[80px] hover:rotate-12 duration-300">
+            <p className="leading-[100%] cursor-pointer text-[32px] md:text-[40px] lg:text-[80px] hover:rotate-12 duration-300">
               &#x2715;
             </p>
           </div>
+        </div>
+        <div className="w-full flex flex-col gap-3 mt-[60px] lg:mt-[100px]">
+          <CartProduct />
         </div>
       </div>
     </div>

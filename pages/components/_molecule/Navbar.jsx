@@ -6,10 +6,10 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <div className="w-full flex justify-between items-center relative py-[30px]">
+    <div className="w-full flex justify-between items-center relative py-[30px] z-[1]">
       <nav className="flex items-center gap-3 text-[14px]">
-        <Link href="/shop">SHOP</Link>
-        <Link href="/bundles">BUNDLES</Link>
+        <Link href="/shop" className="hidden md:block">SHOP</Link>
+        <Link href="/bundles" className="hidden md:block">BUNDLES</Link>
         <Menu />
       </nav>
       <Link

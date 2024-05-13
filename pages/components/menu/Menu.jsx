@@ -6,6 +6,8 @@ import Image from "next/image";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 
+import { TbMenu } from "react-icons/tb";
+
 const menuLinks = [
   {
     path: "/",
@@ -64,15 +66,19 @@ export default function Menu() {
     <div className="menu-container" ref={container}>
       <div className="menu-bar">
         <div className="cursor-pointer" onClick={toggleMenu}>
-          <p>MENU</p>
+          <p className="hidden md:block">MENU</p>
+          <TbMenu size={28} className="md:hidden" />
         </div>
       </div>
-      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] text-white z-[2] flex flex-col p-[64px] justify-between">
+      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] text-white z-[2] flex flex-col p-8 md:p-[64px] justify-between">
         <div className="w-full flex justify-between">
           <div className="flex flex-col gap-2">
             {menuLinks.map((link, index) => (
-              <div className="menu-link-item bebas" key={index}>
-                <div className="menu-link-item-holder py-1" onClick={toggleMenu}>
+              <div className="menu-link-item bebas text-[40px] md:text-[56px] lg:text-[80px] leading-[85%]" key={index}>
+                <div
+                  className="menu-link-item-holder py-1"
+                  onClick={toggleMenu}
+                >
                   <Link href={link.path} className="menu-link">
                     {link.label}
                   </Link>
@@ -81,17 +87,17 @@ export default function Menu() {
             ))}
           </div>
           <div className="menu-close" onClick={toggleMenu}>
-            <p className="leading-[100%] cursor-pointer text-[80px] hover:rotate-12 duration-300">
+            <p className="leading-[100%] cursor-pointer text-[32px] md:text-[40px] lg:text-[80px] hover:rotate-12 duration-300">
               &#x2715;
             </p>
           </div>
         </div>
-        <div className="w-full flex justify-between">
-          <h1 className="bebas text-[200px] tracking-tighter leading-[80%]">
+        <div className="w-full flex flex-col gap-5 md:flex-row md:items-center justify-between">
+          <h1 className="bebas text-[64px] md:text-[100px] lg:text-[200px] tracking-tighter leading-[80%]">
             soleil . co
           </h1>
           <div
-            className="w-[500px] h-[160px] rounded-[12px]"
+            className="w-full lg:w-[500px] h-[120px] md:h-[160px] rounded-[12px]"
             style={{
               backgroundImage: `url('/images/menu-photo.jpg')`,
               backgroundSize: "cover",

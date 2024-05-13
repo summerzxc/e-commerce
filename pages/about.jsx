@@ -1,66 +1,40 @@
 import React from "react";
 import Navbar from "./components/_molecule/Navbar";
-
+import ChildCare from "./components/_atom/ChildCare";
+import Footer from "./components/_molecule/Footer";
+import Marquee from "react-fast-marquee";
+import AboutTopImg from "./components/_molecule/AboutTopImg";
+import AboutBottomImg from "./components/_molecule/AboutBottomImg";
+import AboutText from "./components/_molecule/AboutText";
+import Head from "next/head";
 export default function About() {
   return (
     <div className="max-w-[2160px] px-8 mx-auto">
+      <Head>
+        <title>Soleil - About</title>
+      </Head>
       <Navbar />
-      <div className="w-full flex gap-2">
-        <div
-          className="w-full h-[500px] bg-[#cdcdcd] rounded-[12px]"
-          style={{
-            backgroundImage: "url('/images/about-1.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
-        <div
-          className="w-full h-[500px] bg-[#cdcdcd] rounded-[12px]"
-          style={{
-            backgroundImage: "url('/images/about-2.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
-        <div
-          className="w-full h-[500px] bg-[#cdcdcd] rounded-[12px]"
-          style={{
-            backgroundImage: "url('/images/about-3.jpeg')",
-            backgroundSize: "cover",
-            backgroundPosition: "right",
-          }}
-        ></div>
-      </div>
-      <div className="w-full satoshi-medium text-4xl leading-[130%] my-[64px] text-[#888]">
-        <p>
-          <span className="text-white">Welcome to soleil,</span> your trusted
-          source for authentic{" "}
-          <span className="text-white">
-            Chrome Hearts accessories and wearables.
-          </span>{" "}
-          Discover genuine craftsmanship and personalized service as you explore
-          our curated collection.
-        </p>
-      </div>
-      <div className="h-screen w-full flex gap-2">
-        <div
-          className="w-full h-[80vh] bg-[#cdcdcd] rounded-[12px]"
-          style={{
-            backgroundImage: "url('/images/about-4.webp')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
-        <div
-          className="w-full h-[80vh] bg-[#cdcdcd] rounded-[12px]"
-          style={{
-            backgroundImage: "url('/images/about-5.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        ></div>
-      </div>
-      <div className="h-screen w-full"></div>
+      <AboutTopImg />
+      <AboutText />
+      <AboutBottomImg />
+      <Marquee
+        gradient={true}
+        gradientColor="#101011"
+        speed={60}
+        className="overflow-hidden mb-10 mt-[80px]"
+      >
+        <h1 className="text-5xl text-white bebas mr-2">
+          Authentic Luxury, Personalized Service.
+        </h1>
+        <h1 className="text-5xl text-white bebas mr-2">
+          Authentic Luxury, Personalized Service.
+        </h1>
+        <h1 className="text-5xl text-white bebas mr-2">
+          Authentic Luxury, Personalized Service.
+        </h1>
+      </Marquee>
+      <ChildCare />
+      <Footer />
     </div>
   );
 }

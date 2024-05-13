@@ -17,22 +17,22 @@ export default function ProductPhoto() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-4">
+    <div className="w-full flex md:flex-row flex-col gap-4">
       {/* Display the main image */}
       <div
-        className="w-full h-[60vh] bg-[#cdcdcd] rounded-[12px]"
+        className="w-full h-[320px] md:h-auto bg-[#cdcdcd] rounded-[12px]"
         style={{
           backgroundImage: `url('${ringImages[mainImageIndex]}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       ></div>
-      <div className="w-full flex gap-4">
+      <div className="md:w-[180px] flex flex-row md:flex-col gap-4">
         {/* Render all ring images */}
         {ringImages.map((image, index) => (
           <div
             key={index}
-            className={`h-[200px] w-full bg-[#cdcdcd] rounded-[12px] ${
+            className={`h-[100px] sm:h-[200px] w-full bg-[#cdcdcd] rounded-[12px] ${
               index === mainImageIndex ? "opacity-50" : ""
             }`}
             style={{

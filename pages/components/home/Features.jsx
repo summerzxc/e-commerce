@@ -3,7 +3,7 @@ import FeatureCard from "../_atom/FeatureCard";
 
 export default function Features() {
   return (
-    <div className="w-full grid grid-cols-3 gap-2">
+    <div className="w-full flex flex-wrap lg:grid lg:grid-cols-3 gap-2">
       <FeatureCard
         label="Comfort"
         number="1"

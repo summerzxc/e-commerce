@@ -5,6 +5,10 @@ import ChildCare from "./components/_atom/ChildCare";
 import CardRow from "./components/home/CardRow";
 import ProductPhoto from "./components/_molecule/ProductPhoto";
 
+import { FiMinus, FiPlus } from "react-icons/fi";
+
+
+
 export default function Product() {
   const [productQuantity, setProductQuantity] = useState(1);
 
@@ -28,14 +32,14 @@ export default function Product() {
   return (
     <div className="max-w-[2160px] px-8 mx-auto">
       <Navbar />
-      <div className="flex w-full gap-10 my-10">
+      <div className="flex w-full lg:flex-row flex-col gap-10 my-10">
         <ProductPhoto />
-        <div className="w-full flex flex-col">
-          <h2 className="text-[64px] bebas tracking-tight">
-            001 - Plus Band Ring
-          </h2>
-          <div className="w-full flex gap-8 flex-col">
-            <div className="flex flex-col gap-3">
+        <div className="w-full flex flex-col justify-between">
+          <div className="w-full flex flex-col gap-5">
+            <h2 className="text-[32px] md:text-[64px] bebas tracking-tight">
+              001 - Plus Band Ring
+            </h2>
+            <div className="flex flex-col gap-3 text-[#888]">
               <p>
                 This Chrome Hearts plus band ring is a perfect example of a
                 minimalist design Chrome Hearts ring. This ring features a
@@ -52,8 +56,10 @@ export default function Product() {
                 both as a co-ordinating piece and as a ring between lovers.
               </p>
             </div>
-            <div className="flex flex-col gap-4 p-5 rounded-[12px] border border-[#696969]">
-              <label className="form-control w-full">
+          </div>
+          <div className="w-fit flex gap-4 mt-8 flex-col">
+            <div className="flex flex-wrap items-center gap-4 ">
+              <label className="form-control w-[200px]">
                 <div className="label">
                   <span className="label-text">Option</span>
                 </div>
@@ -70,7 +76,6 @@ export default function Product() {
                   <option>US 10</option>
                 </select>
               </label>
-
               <label className="form-control w-[200px]">
                 <div className="label">
                   <span className="label-text">Quantity</span>
@@ -78,9 +83,9 @@ export default function Product() {
                 <div className="flex border border-[#4E5052] rounded-md justify-between items-center bg-[#383838]">
                   <button
                     onClick={decrementQuantity}
-                    className="px-4 py-2 text-2xl border-r border-[#4E5052]"
+                    className="px-4 py-3 border-r border-[#4E5052]"
                   >
-                    -
+                    <FiMinus size={20}/>
                   </button>
                   <input
                     type="number"
@@ -91,17 +96,16 @@ export default function Product() {
                   />
                   <button
                     onClick={incrementQuantity}
-                    className="p-4 py-2 text-2xl border-l border-[#4E5052]"
+                    className="px-4 py-3 border-l border-[#4E5052]"
                   >
-                    +
+                    <FiPlus size={20}/>
                   </button>
                 </div>
               </label>
-
-              <button className="mt-4 w-full border-white border hover:border-[#B068D3] duration-300 hover:text-white hover:bg-[#B068D3] py-3 rounded-md text-[14px]">
-                Add to cart
-              </button>
             </div>
+            <button className="border-white border duration-300 hover:text-[#101011] hover:bg-white py-3 rounded-md text-[14px]">
+              Add to cart
+            </button>
           </div>
         </div>
       </div>
