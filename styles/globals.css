@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amita:wght@400;700&family=UnifrakturMaguntia&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -25,6 +25,10 @@
 
 .bebas {
   font-family: "UnifrakturMaguntia";
+}
+
+.amita {
+  font-family: "Amita";
 }
 
 body {

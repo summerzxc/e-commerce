@@ -1,13 +1,27 @@
 import React, { useState } from "react";
-import {
-  GiPrimitiveNecklace,
-  GiBigDiamondRing,
-  GiCrystalEarrings,
-  GiSunglasses,
-} from "react-icons/gi";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCategories, selectCategories } from "../../redux/categorySlice";
+// import {
+//   GiPrimitiveNecklace,
+//   GiBigDiamondRing,
+//   GiCrystalEarrings,
+//   GiSunglasses,
+// } from "react-icons/gi";
 
-const CategoryAccordion = ({ title, answer }) => {
+const CategoryAccordion = ({ title, onCategorySelect }) => {
   const [accordionOpen, setAccordionOpen] = useState(false);
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  console.log(categories);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
+
+  const handleCategoryClick = (category) => {
+    onCategorySelect(category);
+  };
 
   return (
     <div className="py-2">
@@ -16,7 +30,6 @@ const CategoryAccordion = ({ title, answer }) => {
         className="flex justify-between w-full"
       >
         <span>{title}</span>
-        {/* {accordionOpen ? <span>-</span> : <span>+</span>} */}
         <svg
           className="fill-white shrink-0 ml-8"
           width="16"
@@ -51,22 +64,20 @@ const CategoryAccordion = ({ title, answer }) => {
         }`}
       >
         <div className="overflow-hidden py-5 flex flex-wrap gap-2">
-          <div className="p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]">
-            <GiPrimitiveNecklace size={40} />
-            <span className="text-[12px]">Necklace</span>
+          <div
+            onClick={() => handleCategoryClick("All")}
+            className="cursor-pointer p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]"
+          >
+            <span>all</span>
           </div>
-          <div className="p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]">
-            <GiBigDiamondRing size={40} />
-            <span className="text-[12px]">Ring</span>
-          </div>
-          <div className="p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]">
-            <GiCrystalEarrings size={40} />
-            <span className="text-[12px]">Earrings</span>
-          </div>
-          <div className="p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]">
-            <GiSunglasses size={40} />
-            <span className="text-[12px]">Glasses</span>
-          </div>
+          {categories.map((category) => (
+            <div
+              onClick={() => handleCategoryClick(category._id)}
+              className="cursor-pointer p-4 flex flex-col items-center gap-2 border rounded-[8px] border-[#696969] w-[100px]"
+            >
+              <span>{category.name}</span>
+            </div>
+          ))}
         </div>
       </div>
     </div>

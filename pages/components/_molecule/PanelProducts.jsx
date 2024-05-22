@@ -8,6 +8,9 @@ import {
   GiCrystalEarrings,
   GiSunglasses,
 } from "react-icons/gi";
+import PanelProductCategories from "../_atom/PanelProductCategories";
+import PanelAddCategory from "../_atom/PanelAddCategory";
+import PanelAddProduct from "../_atom/PanelAddProduct";
 
 export default function PanelProducts() {
   return (
@@ -63,28 +66,15 @@ export default function PanelProducts() {
                   />
                 </svg>
               </label>
-              <button className="satoshi-medium bg-emerald-900 hover:bg-emerald-800 duration-300 px-4 py-2 text-[14px] rounded-md flex gap-2 justify-center items-center mb-4">
+              <button onClick={() => document.getElementById("addProduct").showModal()} className="satoshi-medium bg-emerald-900 hover:bg-emerald-800 duration-300 px-4 py-2 text-[14px] rounded-md flex gap-2 justify-center items-center mb-1">
                 <FaPlus className="mt-[2px]" />
                 Add Product
               </button>
-              <div className="w-full flex flex-wrap lg:flex-nowrap lg:flex-col flex-row gap-1">
-                <button className="satoshi-medium border border-white hover:text-[#151515] hover:bg-white duration-300 px-4 py-2 text-[14px] rounded-md flex justify-center items-center gap-2">
-                  Ring
-                  <GiBigDiamondRing size={20} />
-                </button>
-                <button className="satoshi-medium border border-white hover:text-[#151515] hover:bg-white duration-300 px-4 py-2 text-[14px] rounded-md flex justify-center items-center gap-2">
-                  Necklace
-                  <GiPrimitiveNecklace size={20} />
-                </button>
-                <button className="satoshi-medium border border-white hover:text-[#151515] hover:bg-white duration-300 px-4 py-2 text-[14px] rounded-md flex justify-center items-center gap-2">
-                  Earrings
-                  <GiCrystalEarrings size={20} />
-                </button>
-                <button className="satoshi-medium border border-white hover:text-[#151515] hover:bg-white duration-300 px-4 py-2 text-[14px] rounded-md flex justify-center items-center gap-2">
-                  Glasses
-                  <GiSunglasses size={20} />
-                </button>
-              </div>
+              <button onClick={() => document.getElementById("addCategory").showModal()} className="satoshi-medium bg-yellow-900 hover:bg-yellow-800 duration-300 px-4 py-2 text-[14px] rounded-md flex gap-2 justify-center items-center mb-4">
+                <FaPlus className="mt-[2px]" />
+                Add Category
+              </button>
+              <PanelProductCategories/>
             </div>
             <div className="w-full flex flex-col gap-3">
               <div className="w-full hidden md:flex items-center justify-between text-[#888] satoshi-medium mb-5">
@@ -136,6 +126,8 @@ export default function PanelProducts() {
           </div>
         </div>
       </dialog>
+      <PanelAddCategory/>
+      <PanelAddProduct/>
     </div>
   );
 }

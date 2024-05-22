@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUsers, selectUsers } from "../../redux/userSlice"; // Adjust the path if needed
 import { GoArrowRight, GoArrowUpRight } from "react-icons/go";
-import { AiOutlineUserDelete } from "react-icons/ai";
+import PanelUserCard from "../_atom/PanelUserCard";
 
 export default function Customers() {
+  const dispatch = useDispatch();
+  const users = useSelector(selectUsers);
+  console.log(users)
+  useEffect(() => {
+    dispatch(fetchUsers());
+  }, [dispatch]);
+
   return (
     <div className="cursor-pointer bg-[#151515] border border-[#222222] group rounded-[12px] flex flex-col p-4 gap-3">
       <div className="flex justify-between">
@@ -23,9 +32,10 @@ export default function Customers() {
       <div className="border-t w-full mt-[40px]"></div>
       <div className="flex justify-between items-end">
         <div className="leading-[110%]">
-          <div>CURRENT</div>CUSTOMERS
+          <div>CURRENT CUSTOMERS</div>
+          {users.length} {/* Display the number of users */}
         </div>
-        <div>748</div>
+        <div>{users.length}</div> {/* Display the number of users */}
       </div>
       <dialog id="customers" className="modal p-4">
         <div className="p-4 rounded-[12px] bg-[#151515] border border-[#222222] w-full lg:w-[800px]">
@@ -57,19 +67,9 @@ export default function Customers() {
             </label>
           </div>
           <div className="mt-4 flex flex-col gap-4 border rounded-[12px] p-2 border-[#222222]">
-            <div className="px-2 flex flex-wrap justify-between items-center">
-              <div className="flex sm:gap-5 sm:items-center sm:flex-row flex-col">
-                <span>#1 </span>
-                <span className="">Username: bazii</span>
-                <span className="">Email: bazraa@gmail.com</span>
-              </div>
-              <div className="w-full sm:w-auto flex items-center justify-between gap-5">
-                <span>Items Bought: 1</span>
-                <button className="text-red-600">
-                  <AiOutlineUserDelete size={24} />
-                </button>
-              </div>
-            </div>
+            {users.map((user) => (
+              <PanelUserCard key={user.id} user={user} />
+            ))}
           </div>
         </div>
       </dialog>

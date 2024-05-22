@@ -52,7 +52,7 @@ export default function Cart() {
           <RiShoppingBagFill size={28} />
         </div>
       </div>
-      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] text-white z-[2] flex flex-col p-8 md:p-[64px] overflow-hidden">
+      <div className="menu-overlay fixed top-0 left-0 w-[100vw] h-[100vh] bg-[#202022] justify-between text-white z-[2] flex flex-col p-8 md:p-[64px] overflow-hidden">
         <div className="w-full flex items-center justify-between">
           <div className="text-[40px] md:text-[100px] bebas leading-[100%]">Your Cart</div>
           <div className="menu-close" onClick={toggleCart}>
@@ -61,8 +61,12 @@ export default function Cart() {
             </p>
           </div>
         </div>
-        <div className="w-full flex flex-col gap-3 mt-[60px] lg:mt-[100px]">
+        <div className="w-full flex flex-col gap-3 ">
           <CartProduct />
+        </div>
+        <div className="w-full flex justify-between">
+          <h3>Total: 130$</h3>
+          <button>Checkout </button>
         </div>
       </div>
     </div>

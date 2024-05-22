@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function ProductPhoto() {
+export default function ProductPhoto({images}) {
   // Images for rings
   const ringImages = [
     "/plus-band-ring-1.webp",
@@ -22,14 +22,14 @@ export default function ProductPhoto() {
       <div
         className="w-full h-[320px] md:h-auto bg-[#cdcdcd] rounded-[12px]"
         style={{
-          backgroundImage: `url('${ringImages[mainImageIndex]}')`,
+          backgroundImage: `url('${images[mainImageIndex]}')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       ></div>
       <div className="md:w-[180px] flex flex-row md:flex-col gap-4">
         {/* Render all ring images */}
-        {ringImages.map((image, index) => (
+        {images.map((image, index) => (
           <div
             key={index}
             className={`h-[100px] sm:h-[200px] w-full bg-[#cdcdcd] rounded-[12px] ${

@@ -4,7 +4,9 @@ import Customers from "./components/_molecule/Customers";
 import PanelProducts from "./components/_molecule/PanelProducts";
 import Shippings from "./components/_molecule/Shippings";
 import Head from "next/head";
-export default function Panel() {
+import withAdminAuth from "@/utils/withAdminAuth";
+
+const Panel = () => {
   return (
     <div
       className="min-h-screen w-full flex sm:flex-row flex-col gap-10 justify-between p-6"
@@ -31,4 +33,6 @@ export default function Panel() {
       </div>
     </div>
   );
-}
+};
+
+export default withAdminAuth(Panel);

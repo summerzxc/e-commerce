@@ -16,13 +16,13 @@ export default function CardRow({ title, buttonText }) {
         {buttonText} <BsArrowRight size={20} />
       </Link>
       <div className="w-full grid-cols-1 lg:grid-cols-3 grid gap-2">
-        <ProductCard
+        {/* <ProductCard
           image="product-1.png"
           title="Leather Jacket"
           number="001"
         />
         <ProductCard image="product-1.png" title="Denim Jeans" number="002" />
-        <ProductCard image="product-1.png" title="Silk Curf" number="003" />
+        <ProductCard image="product-1.png" title="Silk Curf" number="003" /> */}
       </div>
     </div>
   );

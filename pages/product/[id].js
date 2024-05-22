@@ -1,16 +1,27 @@
-import React, { useState } from "react";
-import Navbar from "./components/_molecule/Navbar";
-import Footer from "./components/_molecule/Footer";
-import ChildCare from "./components/_atom/ChildCare";
-import CardRow from "./components/home/CardRow";
-import ProductPhoto from "./components/_molecule/ProductPhoto";
-
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import Navbar from "../components/_molecule/Navbar";
+import Footer from "../components/_molecule/Footer";
+import ChildCare from "../components/_atom/ChildCare";
+import CardRow from "../components/home/CardRow";
+import ProductPhoto from "../components/_molecule/ProductPhoto";
+import { fetchProductById, selectProductById } from "../redux/productSlice"; // Import your actions and selectors
 import { FiMinus, FiPlus } from "react-icons/fi";
-
-
+import Head from "next/head";
 
 export default function Product() {
+  const router = useRouter();
+  const { id } = router.query;
+  const dispatch = useDispatch();
+  const product = useSelector((state) => selectProductById(state, id)); // Use a selector to get the product by ID
   const [productQuantity, setProductQuantity] = useState(1);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchProductById(id)); // Fetch the product by ID when the component mounts
+    }
+  }, [id, dispatch]);
 
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
@@ -29,32 +40,29 @@ export default function Product() {
     }
   };
 
+  if (!product) {
+    return <div
+      className="w-full h-screen flex justify-center items-center text-3xl bebas">Loading...</div>;
+  }
+
   return (
     <div className="max-w-[2160px] px-8 mx-auto">
+      <Head>
+        <title>Soleil - {product.name}</title>
+      </Head>
       <Navbar />
       <div className="flex w-full lg:flex-row flex-col gap-10 my-10">
-        <ProductPhoto />
+        <ProductPhoto images={product.images} />
         <div className="w-full flex flex-col justify-between">
           <div className="w-full flex flex-col gap-5">
             <h2 className="text-[32px] md:text-[64px] bebas tracking-tight">
-              001 - Plus Band Ring
+              {product.name}
             </h2>
             <div className="flex flex-col gap-3 text-[#888]">
-              <p>
-                This Chrome Hearts plus band ring is a perfect example of a
-                minimalist design Chrome Hearts ring. This ring features a
-                rounded edge and evenly spaced Chrome Hearts plus motifs along
-                the band of the ring.
-              </p>
-              <p>
-                The curved surface of the ring allows the ring to show off the
-                silver’s natural luster and shine to create a beautiful effect.
-              </p>
-              <p>
-                The Chrome Hearts plus motifs add a balanced feeling to the ring
-                such that the feeling is very pleasant. We recommend this ring
-                both as a co-ordinating piece and as a ring between lovers.
-              </p>
+              <p>{product.description}</p>
+              {product.details.map((detail, index) => (
+                <p key={index}>{detail}</p>
+              ))}
             </div>
           </div>
           <div className="w-fit flex gap-4 mt-8 flex-col">
@@ -67,13 +75,9 @@ export default function Product() {
                   <option disabled selected>
                     Choose your size
                   </option>
-                  <option>US 4</option>
-                  <option>US 5</option>
-                  <option>US 6</option>
-                  <option>US 7</option>
-                  <option>US 8</option>
-                  <option>US 9</option>
-                  <option>US 10</option>
+                  {product.sizes.map((size, index) => (
+                    <option key={index}>{size}</option>
+                  ))}
                 </select>
               </label>
               <label className="form-control w-[200px]">
@@ -85,7 +89,7 @@ export default function Product() {
                     onClick={decrementQuantity}
                     className="px-4 py-3 border-r border-[#4E5052]"
                   >
-                    <FiMinus size={20}/>
+                    <FiMinus size={20} />
                   </button>
                   <input
                     type="number"
@@ -98,7 +102,7 @@ export default function Product() {
                     onClick={incrementQuantity}
                     className="px-4 py-3 border-l border-[#4E5052]"
                   >
-                    <FiPlus size={20}/>
+                    <FiPlus size={20} />
                   </button>
                 </div>
               </label>
