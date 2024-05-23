@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import ProductCard from "../_atom/ProductCard";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts, selectProducts } from "../../redux/productSlice";
 
 export default function HomeCardRow() {
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  // Filter featured products and limit to three
+  const featuredProducts = products
+    .filter((product) => product.isFeatured)
+    .slice(0, 3);
+
   return (
     <div className="min-h-screen w-full flex flex-col">
       <h2 className="satoshi-medium text-[32px] md:text-[40px] lg:text-[64px] leading-[110%] mb-10">
@@ -17,13 +31,9 @@ export default function HomeCardRow() {
         Shop Products <BsArrowRight size={20} />
       </Link>
       <div className="w-full grid-cols-1 lg:grid-cols-3 grid gap-2">
-        {/* <ProductCard
-          image="product-1.png"
-          title="Leather Jacket"
-          number="001"
-        />
-        <ProductCard image="product-1.png" title="Denim Jeans" number="002" />
-        <ProductCard image="product-1.png" title="Silk Curf" number="003" /> */}
+        {featuredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
   );

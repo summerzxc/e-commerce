@@ -6,18 +6,22 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/router";
+import { MdExitToApp } from "react-icons/md";
 
 export default function Navbar() {
   const [username, setUsername] = useState(null);
-
+  const router = useRouter();
+  let userIdd;
   useEffect(() => {
     const token = Cookies.get("token");
 
     if (token) {
       const decodedToken = jwtDecode(token);
-      console.log(decodedToken)
+      console.log(decodedToken);
       const userId = decodedToken.userId; // Adjust according to your token structure
 
+      userIdd = userId;
       axios
         .get(`http://localhost:4000/api/v1/users/${userId}`, {
           headers: {
@@ -36,6 +40,12 @@ export default function Navbar() {
     }
   }, []);
 
+  const handleProfile = () => {
+    if (username) {
+      router.push(`/profile/${userIdd}`); // Adjust to match your profile URL
+    }
+  };
+
   return (
     <div className="w-full flex justify-between items-center relative py-[30px] z-[1]">
       <nav className="flex items-center gap-3 text-[14px]">
@@ -44,7 +54,12 @@ export default function Navbar() {
           SHOP
         </Link>
         {username ? (
-          <span className="hidden md:block">{username} 👋</span>
+          <span
+            className="cursor-pointer hidden md:block"
+            onClick={handleProfile}
+          >
+            {username} 👋
+          </span>
         ) : (
           <Link href="/auth/login" className="hidden md:block">
             LOG IN
@@ -57,7 +72,22 @@ export default function Navbar() {
       >
         soleil
       </Link>
-      <Cart />
+      <div className="flex items-center gap-3">
+        <Cart />
+        {username ? (
+          <span
+            className="cursor-pointer"
+            onClick={() => {
+              Cookies.remove("token");
+              router.push("/auth/login");
+            }}
+          >
+            <MdExitToApp size={28}/>
+          </span>
+        ) : (
+          null
+        )}
+      </div>
     </div>
   );
 }

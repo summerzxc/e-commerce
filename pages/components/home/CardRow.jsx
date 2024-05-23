@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BsArrowRight } from "react-icons/bs";
 import ProductCard from "../_atom/ProductCard";
 import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProducts, selectProducts } from "../../redux/productSlice";
 
-export default function CardRow({ title, buttonText }) {
+export default function CardRow({ title, buttonText, category, currentProductId }) {
+  const dispatch = useDispatch();
+  const products = useSelector(selectProducts);
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  // Filter products based on category and limit to three
+  const filteredProducts = products
+    .filter((product) => product.category === category && product.id !== currentProductId)
+    .slice(0, 3);
+
   return (
     <div className="w-full flex flex-col pb-[40px]">
       <h2 className="bebas text-[32px] md:text-[40px] lg:text-[64px] leading-[110%] mb-4 md:mb-10">
@@ -16,13 +30,12 @@ export default function CardRow({ title, buttonText }) {
         {buttonText} <BsArrowRight size={20} />
       </Link>
       <div className="w-full grid-cols-1 lg:grid-cols-3 grid gap-2">
-        {/* <ProductCard
-          image="product-1.png"
-          title="Leather Jacket"
-          number="001"
-        />
-        <ProductCard image="product-1.png" title="Denim Jeans" number="002" />
-        <ProductCard image="product-1.png" title="Silk Curf" number="003" /> */}
+        {filteredProducts.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+          />
+        ))}
       </div>
     </div>
   );

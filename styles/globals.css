@@ -115,3 +115,23 @@ body {
 .grayscale-bg-hover:hover {
   filter: grayscale(0%);
 }
+
+.cart-product-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #888 #202022; /* color of thumb and track */
+}
+
+/* For Chrome, Edge, and Safari */
+.cart-product-scroll::-webkit-scrollbar {
+  width: 12px;
+}
+
+.cart-product-scroll::-webkit-scrollbar-track {
+  background: #202022; /* color of the track */
+}
+
+.cart-product-scroll::-webkit-scrollbar-thumb {
+  background-color: #888; /* color of the thumb */
+  border-radius: 20px; /* roundness of the thumb */
+  border: 3px solid #202022; /* creates padding around thumb */
+}

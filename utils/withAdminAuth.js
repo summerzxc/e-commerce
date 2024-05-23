@@ -12,7 +12,7 @@ const withAdminAuth = (WrappedComponent) => {
     useEffect(() => {
       const token = Cookies.get("token");
       if (!token) {
-        router.push("/login");
+        router.push("/auth/login");
         return;
       }
 
@@ -22,11 +22,11 @@ const withAdminAuth = (WrappedComponent) => {
         if (decoded.isAdmin) {
           setIsLoading(false);
         } else {
-          router.push("/login");
+          router.push("/auth/login");
         }
       } catch (error) {
         console.error("Invalid token:", error);
-        router.push("/login");
+        router.push("/auth/login");
       }
     }, [router]);
 

@@ -18,10 +18,6 @@ const menuLinks = [
     label: "Shop",
   },
   {
-    path: "/bundles",
-    label: "Bundles",
-  },
-  {
     path: "/about",
     label: "About",
   },

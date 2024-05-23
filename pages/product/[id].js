@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+import axiosInstance from "@/utils/axiosInstance";
 import Navbar from "../components/_molecule/Navbar";
 import Footer from "../components/_molecule/Footer";
 import ChildCare from "../components/_atom/ChildCare";
@@ -9,6 +10,8 @@ import ProductPhoto from "../components/_molecule/ProductPhoto";
 import { fetchProductById, selectProductById } from "../redux/productSlice"; // Import your actions and selectors
 import { FiMinus, FiPlus } from "react-icons/fi";
 import Head from "next/head";
+import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
 
 export default function Product() {
   const router = useRouter();
@@ -40,9 +43,40 @@ export default function Product() {
     }
   };
 
+  const handleAddToCart = async () => {
+    try {
+      const token = Cookies.get("token");
+      if (!token) {
+        router.push("/auth/login");
+        return;
+      }
+
+      const decodedToken = jwtDecode(token);
+      const userId = decodedToken.userId;
+
+      const response = await axiosInstance.post("/orders/add-to-cart", {
+        userId,
+        productId: id,
+        quantity: productQuantity,
+      });
+
+      alert("Product added to cart successfully!");
+      setProductQuantity(1);
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        alert("You have already added this item to the cart");
+      } else {
+        console.log(error);
+      }
+    }
+  };
+
   if (!product) {
-    return <div
-      className="w-full h-screen flex justify-center items-center text-3xl bebas">Loading...</div>;
+    return (
+      <div className="w-full h-screen flex justify-center items-center text-3xl bebas">
+        Loading ...
+      </div>
+    );
   }
 
   return (
@@ -55,9 +89,10 @@ export default function Product() {
         <ProductPhoto images={product.images} />
         <div className="w-full flex flex-col justify-between">
           <div className="w-full flex flex-col gap-5">
-            <h2 className="text-[32px] md:text-[64px] bebas tracking-tight">
+            <h2 className="text-[32px] md:text-[64px] bebas tracking-tight leading-[110%]">
               {product.name}
             </h2>
+            <span className="text-3xl">$ {product.price}</span>
             <div className="flex flex-col gap-3 text-[#888]">
               <p>{product.description}</p>
               {product.details.map((detail, index) => (
@@ -67,19 +102,6 @@ export default function Product() {
           </div>
           <div className="w-fit flex gap-4 mt-8 flex-col">
             <div className="flex flex-wrap items-center gap-4 ">
-              <label className="form-control w-[200px]">
-                <div className="label">
-                  <span className="label-text">Option</span>
-                </div>
-                <select className="select select-bordered bg-[#383838]">
-                  <option disabled selected>
-                    Choose your size
-                  </option>
-                  {product.sizes.map((size, index) => (
-                    <option key={index}>{size}</option>
-                  ))}
-                </select>
-              </label>
               <label className="form-control w-[200px]">
                 <div className="label">
                   <span className="label-text">Quantity</span>
@@ -107,13 +129,23 @@ export default function Product() {
                 </div>
               </label>
             </div>
-            <button className="border-white border duration-300 hover:text-[#101011] hover:bg-white py-3 rounded-md text-[14px]">
+            <button
+              className="border-white border duration-300 hover:text-[#101011] hover:bg-white py-3 rounded-md text-[14px]"
+              onClick={handleAddToCart}
+            >
               Add to cart
             </button>
           </div>
         </div>
       </div>
-      <CardRow title="Related Products" buttonText="See More" />
+      {product && (
+        <CardRow
+          title="Related Products"
+          buttonText="See More"
+          category={product.category}
+          currentProductId={id} // Pass the ID of the current product
+        />
+      )}
       <ChildCare />
       <Footer />
     </div>

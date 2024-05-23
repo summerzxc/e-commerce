@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 export default function Footer() {
   return (
@@ -7,11 +8,10 @@ export default function Footer() {
         <h1 className="text-[100px] md:text-[200px] tracking-tighter bebas leading-[80%]">
           soleil
         </h1>
-        <ul className="text-[14px] sm:text-base">
-          <li>Shop</li>
-          <li>Bundles</li>
-          <li>About Us</li>
-          <li>FAQ</li>
+        <ul className="text-[14px] sm:text-base flex flex-col">
+          <Link href="/shop">Shop</Link>
+          <Link href="/about">About Us</Link>
+          <Link href="/faq">FAQ</Link>
         </ul>
       </div>
       <div className="flex flex-col satoshi-medium text-lg md:text-xl text-end">

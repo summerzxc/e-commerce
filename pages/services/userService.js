@@ -6,7 +6,17 @@ const userService = {
       const response = await axiosInstance.get("/users");
       return response.data;
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error("Error fetching users:", error);
+      throw error;
+    }
+  },
+
+  removeUser: async (userId) => {
+    try {
+      const response = await axiosInstance.delete(`/users/${userId}`);
+      return response.data;
+    } catch (error) {
+      console.error("Error removing user:", error);
       throw error;
     }
   },
